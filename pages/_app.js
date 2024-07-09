@@ -1,5 +1,6 @@
 import GlobalStyle from "../styles";
 import useSWR from "swr";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -12,7 +13,9 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <h1>ART GALLERY</h1>
-      <GlobalStyle />
+      <Layout>
+        <GlobalStyle />
+      </Layout>
       <Component {...pageProps} pieces={pieces} />
     </>
   );
