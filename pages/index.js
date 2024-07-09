@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import ArtPieces from "@/components/ArtPieces";
+import ArtPieces from "@/components/ArtPieces/index";
 
 export default function HomePage() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
