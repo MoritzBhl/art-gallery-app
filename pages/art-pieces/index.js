@@ -1,16 +1,10 @@
-import styled from "styled-components";
-import ArtPiecePreview from "../ArtPiecePreview";
+import ArtPiecePreview from "@/components/ArtPiecePreview";
 
 export default function ArtPieces({ pieces }) {
-  const randomPicture = pieces[Math.floor(Math.random() * pieces.length)];
-
+  console.log("page art-pieces", pieces);
   return (
     <>
-      <ArtPiecePreview
-        image={randomPicture.imageSource}
-        artist={randomPicture.artist}
-        title={randomPicture.name}
-      />
+      <h2>ART GALLERY</h2>
       <ul>
         {pieces.map((piece) => {
           const { imageSource: image, name: title, artist, slug } = piece;
