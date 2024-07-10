@@ -12,11 +12,10 @@ export default function App({ Component, pageProps }) {
   if (isLoading) return <div>loading...</div>;
   return (
     <>
-      <h1>ART GALLERY</h1>
       <Layout>
         <GlobalStyle />
+        <Component {...pageProps} pieces={pieces} />
       </Layout>
-      <Component {...pageProps} pieces={pieces} />
     </>
   );
 }
