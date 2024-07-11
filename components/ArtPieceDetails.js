@@ -27,16 +27,16 @@ export default function ArtPieceDetails({ pieces }) {
 
   return (
     <>
-      <Link href="/art-pieces">Back to Art Pieces</Link>
-      <br></br>
       <div>
+        <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
+        <br></br>
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
       <ul>
         Comments:
         {comments.map((comment) => (
-          <li key={comment.id}>{comment.comment}</li>
+          <List key={comment.id}>{comment.comment}</List>
         ))}
       </ul>
       <Form onSubmit={handleForm}>
@@ -53,6 +53,21 @@ export default function ArtPieceDetails({ pieces }) {
     </>
   );
 }
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
+const List = styled.li`
+  list-style: none;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 3px 3px gray;
+  width: 90%;
+  padding: 1rem;
+  margin: 10px 0;
+`;
 
 const Form = styled.form`
   padding: 2rem;
