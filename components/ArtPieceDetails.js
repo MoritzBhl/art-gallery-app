@@ -4,8 +4,13 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { uid } from "uid";
+import FavoriteHeart from "/public/assets/heart.svg";
 
-export default function ArtPieceDetails({ pieces }) {
+export default function ArtPieceDetails({
+  pieces,
+  onToggleFavorite,
+  artPiecesInfo,
+}) {
   const [comments, setComments] = useState([]);
 
   function handleForm(event) {
@@ -23,16 +28,30 @@ export default function ArtPieceDetails({ pieces }) {
   const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
   const art = pieces[artIndex];
 
-  const { artist, genre, imageSource: image, name: title, year } = art;
+  const {
+    artist,
+    genre,
+    imageSource: image,
+    name: title,
+    year,
+    slug: cardSlug,
+  } = art;
+
+  const isFavorite = artPiecesInfo.find(
+    (piece) => piece.slug === slug
+  )?.isFavorite;
 
   return (
     <>
-      <div>
+      <ArtDetail>
+        <button type="button" onClick={() => onToggleFavorite(cardSlug)}>
+          <FavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
+        </button>
         <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
         <br></br>
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
-      </div>
+      </ArtDetail>
       <ul>
         Comments:
         {comments.map((comment) => (
@@ -54,9 +73,28 @@ export default function ArtPieceDetails({ pieces }) {
   );
 }
 
+const ArtDetail = styled.div`
+  position: relative;
+  z-index: 0;
+`;
+
+// const StyledFavoriteHeart = styled(FavoriteHeart)`
+//   position: absolute;
+//   top: 30px;
+//   left: 240px;
+//   z-index: 2;
+//   fill: white;
+//   stroke: black;
+//   cursor: pointer;
+// `;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
+  &:hover {
+    text-decoration: underline;
+    color: lightsalmon;
+  }
 `;
 
 const List = styled.li`
