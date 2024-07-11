@@ -1,7 +1,6 @@
 import ArtPiecePreview from "@/components/ArtPiecePreview";
 
 export default function ArtPieces({ pieces }) {
-  console.log("page art-pieces", pieces);
   return (
     <>
       <h2>ART GALLERY</h2>
@@ -14,6 +13,7 @@ export default function ArtPieces({ pieces }) {
               image={image}
               title={title}
               artist={artist}
+              slug={slug}
             />
           );
         })}
