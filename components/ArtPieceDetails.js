@@ -43,15 +43,18 @@ export default function ArtPieceDetails({
 
   return (
     <>
-      <ArtDetail>
-        <button type="button" onClick={() => onToggleFavorite(cardSlug)}>
-          <FavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
-        </button>
+      <div>
+        <FavoriteButton
+          type="button"
+          onClick={() => onToggleFavorite(cardSlug)}
+        >
+          <StyledFavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
+        </FavoriteButton>
         <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
         <br></br>
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
-      </ArtDetail>
+      </div>
       <ul>
         Comments:
         {comments.map((comment) => (
@@ -67,26 +70,28 @@ export default function ArtPieceDetails({
           type="text"
           placeholder=" Add comment"
         ></Textarea>
-        <Button type="submit">Send</Button>
+        <SubmitButton type="submit">Send</SubmitButton>
       </Form>
     </>
   );
 }
 
-const ArtDetail = styled.div`
+const FavoriteButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
   position: relative;
-  z-index: 0;
+  top: 50px;
+  left: 250px;
+  width: 44px;
+  padding: 0;
+  height: 44px;
 `;
 
-// const StyledFavoriteHeart = styled(FavoriteHeart)`
-//   position: absolute;
-//   top: 30px;
-//   left: 240px;
-//   z-index: 2;
-//   fill: white;
-//   stroke: black;
-//   cursor: pointer;
-// `;
+const StyledFavoriteHeart = styled(FavoriteHeart)`
+  width: 100%;
+  height: 100%;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -120,7 +125,7 @@ const Textarea = styled.textarea`
   border-radius: 10px;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   width: 30%;
   height: 3vh;
   border-radius: 5px;

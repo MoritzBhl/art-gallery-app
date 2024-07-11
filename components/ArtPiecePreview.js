@@ -13,9 +13,9 @@ export default function ArtPiecePreview({
 }) {
   return (
     <StyledListItem>
-      <button type="button" onClick={() => onToggleFavorite(slug)}>
-        <FavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
-      </button>
+      <FavoriteButton type="button" onClick={() => onToggleFavorite(slug)}>
+        <StyledFavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
+      </FavoriteButton>
       <Link href={`/art-pieces/${slug}`}>
         <Image src={image} alt={title} width={300} height={300} />
       </Link>
@@ -31,12 +31,19 @@ const StyledListItem = styled.li`
   z-index: 0;
 `;
 
-// const StyledFavoriteHeart = styled(FavoriteHeart)`
-//   position: absolute;
-//   left: 240px;
-//   top: -270px;
-//   z-index: 2;
-//   fill: white;
-//   stroke: black;
-//   cursor: pointer;
-// `;
+const FavoriteButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  bottom: 252px;
+  left: 294px;
+  width: 44px;
+  padding: 0;
+  height: 44px;
+`;
+
+const StyledFavoriteHeart = styled(FavoriteHeart)`
+  width: 100%;
+  height: 100%;
+`;
