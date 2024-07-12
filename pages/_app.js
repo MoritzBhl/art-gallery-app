@@ -2,6 +2,7 @@ import GlobalStyle from "../styles";
 import useSWR from "swr";
 import Layout from "@/components/Layout";
 import { useState } from "react";
+import { uid } from "uid";
 
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
@@ -33,6 +34,17 @@ export default function App({ Component, pageProps }) {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
+  //DetailsPage Form
+
+  function handleCommentForm(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    setArtPiecesInfo([...artPiecesInfo, { ...data, id: uid() }]);
+    event.target.reset();
+    event.target.elements.comment.focus();
+  }
+
   return (
     <>
       <Layout>
@@ -42,6 +54,7 @@ export default function App({ Component, pageProps }) {
           pieces={pieces}
           artPiecesInfo={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
+          onCommentForm={handleCommentForm}
         />
       </Layout>
     </>

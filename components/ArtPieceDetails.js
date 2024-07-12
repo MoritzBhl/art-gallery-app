@@ -1,55 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
-import { uid } from "uid";
-import FavoriteHeart from "/public/assets/heart.svg";
+import FavoriteButton from "./FavoriteButton";
 
 export default function ArtPieceDetails({
-  pieces,
   onToggleFavorite,
+  isFavorite,
+  image,
+  title,
+  artist,
+  genre,
+  year,
+  onCommentForm,
   artPiecesInfo,
 }) {
-  const [comments, setComments] = useState([]);
-
-  function handleForm(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    setComments([...comments, { ...data, id: uid() }]);
-    event.target.reset();
-    event.target.elements.comment.focus();
-  }
-
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
-  const art = pieces[artIndex];
-
-  const {
-    artist,
-    genre,
-    imageSource: image,
-    name: title,
-    year,
-    slug: cardSlug,
-  } = art;
-
-  const isFavorite = artPiecesInfo.find(
-    (piece) => piece.slug === slug
-  )?.isFavorite;
-
   return (
     <>
       <div>
         <FavoriteButton
-          type="button"
-          onClick={() => onToggleFavorite(cardSlug)}
-        >
-          <StyledFavoriteHeart width={44} fill={isFavorite ? "red" : "black"} />
-        </FavoriteButton>
+          isFavorite={isFavorite}
+          onToggleFavorite={onToggleFavorite}
+        />
         <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
         <br></br>
         <Image src={image} alt={title} width={300} height={300}></Image>
@@ -57,11 +28,11 @@ export default function ArtPieceDetails({
       </div>
       <ul>
         Comments:
-        {comments.map((comment) => (
+        {artPiecesInfo.map((comment) => (
           <List key={comment.id}>{comment.comment}</List>
         ))}
       </ul>
-      <Form onSubmit={handleForm}>
+      <Form onSubmit={onCommentForm}>
         <label htmlFor="comment"></label>
         <Textarea
           id="comment"
@@ -75,23 +46,6 @@ export default function ArtPieceDetails({
     </>
   );
 }
-
-const FavoriteButton = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-  position: relative;
-  top: 50px;
-  left: 250px;
-  width: 44px;
-  padding: 0;
-  height: 44px;
-`;
-
-const StyledFavoriteHeart = styled(FavoriteHeart)`
-  width: 100%;
-  height: 100%;
-`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
