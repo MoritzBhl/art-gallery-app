@@ -1,5 +1,4 @@
 import ArtPiecePreview from "@/components/ArtPiecePreview";
-import Image from "next/image";
 
 export default function ArtPieces({ pieces, onToggleFavorite, artPiecesInfo }) {
   return (

@@ -30,5 +30,4 @@ const StyledListItem = styled.li`
   list-style: none;
   position: relative;
   display: inline;
-  z-index: 0;
 `;

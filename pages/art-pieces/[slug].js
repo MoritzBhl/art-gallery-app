@@ -23,9 +23,10 @@ export default function Slug({
   } = art;
 
   const isFavorite = artPiecesInfo.find(
-    (piece) => piece.slug === slug
+    (piece) => piece.slug === artSlug
   )?.isFavorite;
-  console.log(isFavorite);
+  console.log("ArtSlug: ", artSlug);
+  console.log("artPiecesInfo: ", artPiecesInfo);
 
   return (
     <ArtPieceDetails
@@ -34,11 +35,13 @@ export default function Slug({
       image={image}
       title={title}
       year={year}
+      artSlug={artSlug}
       onToggleFavorite={() => onToggleFavorite(artSlug)}
-      isFavorite={isFavorite}
+      isFavorite={
+        artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+      }
       onCommentForm={onCommentForm}
       artPiecesInfo={artPiecesInfo}
     />
   );
 }
-//Logik von ArtPieceDetails in slug und dann nach unten weiterreichen

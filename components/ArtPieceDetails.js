@@ -10,19 +10,22 @@ export default function ArtPieceDetails({
   title,
   artist,
   genre,
+  artSlug,
   year,
   onCommentForm,
   artPiecesInfo,
 }) {
+  console.log(FavoriteButton);
   return (
     <>
       <div>
-        <FavoriteButton
-          isFavorite={isFavorite}
-          onToggleFavorite={onToggleFavorite}
-        />
         <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
         <br></br>
+        <FavoriteButton
+          onToggleFavorite={() => onToggleFavorite(artSlug)}
+          isFavorite={isFavorite}
+          slug={artSlug}
+        />
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>

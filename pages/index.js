@@ -1,4 +1,5 @@
 import ArtPiecePreview from "@/components/ArtPiecePreview";
+import Image from "next/image";
 
 export default function SpotlightPage({ pieces }) {
   const randomPicture = pieces[Math.floor(Math.random() * pieces.length)];
@@ -7,11 +8,13 @@ export default function SpotlightPage({ pieces }) {
     <>
       <h2>SPOTLIGHT</h2>
       <ul>
-        <ArtPiecePreview
-          image={randomPicture.imageSource}
-          artist={randomPicture.artist}
-          title={randomPicture.name}
+        <Image
+          src={randomPicture.imageSource}
+          alt={randomPicture.name}
+          width={300}
+          height={300}
         />
+        <p>{`"${randomPicture.name}" by ${randomPicture.artist}`}</p>
       </ul>
     </>
   );
