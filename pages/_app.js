@@ -3,11 +3,13 @@ import useSWR from "swr";
 import Layout from "@/components/Layout";
 import { useState } from "react";
 import { uid } from "uid";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
-  const [comments, setComments] = useState([]);
+  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState([], {
+    defaultValue: [],
+  });
 
   function handleToggleFavorite(slug) {
     const artPiece = artPiecesInfo.find(
@@ -41,7 +43,7 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    setComments([...comments, { ...data, id: uid() }]);
+    setArtPiecesInfo([...artPiecesInfo, { ...data, id: uid() }]);
     event.target.reset();
     event.target.elements.comment.focus();
   }
@@ -53,7 +55,6 @@ export default function App({ Component, pageProps }) {
         <Component
           {...pageProps}
           pieces={pieces}
-          comments={comments}
           artPiecesInfo={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
           onCommentForm={handleCommentForm}

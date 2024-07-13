@@ -9,7 +9,6 @@ export default function ArtPieceDetails({
   pieces,
   onCommentForm,
   artPiecesInfo,
-  comments,
 }) {
   const router = useRouter();
   const { slug } = router.query;
@@ -42,7 +41,7 @@ export default function ArtPieceDetails({
       </div>
       <ul>
         Comments:
-        {comments.map((comment) => (
+        {artPiecesInfo.map((comment) => (
           <List key={comment.id}>{comment.comment}</List>
         ))}
       </ul>
