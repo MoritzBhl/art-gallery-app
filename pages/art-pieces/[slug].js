@@ -4,13 +4,13 @@ export default function Slug({
   pieces,
   onToggleFavorite,
   artPiecesInfo,
-  onCommentForm,
+  onSubmitComment,
 }) {
   return (
     <ArtPieceDetails
       onToggleFavorite={onToggleFavorite}
       pieces={pieces}
-      onCommentForm={onCommentForm}
+      onSubmitComment={onSubmitComment}
       artPiecesInfo={artPiecesInfo}
     />
   );

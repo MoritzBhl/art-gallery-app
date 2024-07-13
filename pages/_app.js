@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
 
   //DetailsPage Form
 
-  function handleCommentForm(event) {
+  function handleSubmitComment(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }) {
           pieces={pieces}
           artPiecesInfo={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
-          onCommentForm={handleCommentForm}
+          onSubmitComment={handleSubmitComment}
         />
       </Layout>
     </>
