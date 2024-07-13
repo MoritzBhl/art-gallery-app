@@ -4,7 +4,6 @@ export default function Slug({
   pieces,
   onToggleFavorite,
   artPiecesInfo,
-  comments,
   onCommentForm,
 }) {
   return (
@@ -13,7 +12,6 @@ export default function Slug({
       pieces={pieces}
       onCommentForm={onCommentForm}
       artPiecesInfo={artPiecesInfo}
-      comments={comments}
     />
   );
 }
