@@ -16,7 +16,7 @@ export default function Navigation() {
           </StyledLink>
         </ListItem>
         <ListItem>
-          <StyledLink $isActive href="/">
+          <StyledLink $isActive href="/favorites">
             Favorites
           </StyledLink>
         </ListItem>

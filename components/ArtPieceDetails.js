@@ -1,35 +1,42 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
-import { uid } from "uid";
+import FavoriteButton from "./FavoriteButton";
+import { useRouter } from "next/router";
 
-export default function ArtPieceDetails({ pieces }) {
-  const [comments, setComments] = useState([]);
-
-  function handleForm(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    setComments([...comments, { ...data, id: uid() }]);
-    event.target.reset();
-    event.target.elements.comment.focus();
-  }
-
+export default function ArtPieceDetails({
+  onToggleFavorite,
+  pieces,
+  onCommentForm,
+  artPiecesInfo,
+  comments,
+}) {
   const router = useRouter();
   const { slug } = router.query;
 
   const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
   const art = pieces[artIndex];
 
-  const { artist, genre, imageSource: image, name: title, year } = art;
-
+  const {
+    artist,
+    genre,
+    imageSource: image,
+    name: title,
+    year,
+    slug: artSlug,
+  } = art;
   return (
     <>
       <div>
         <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
         <br></br>
+        <FavoriteButton
+          onToggleFavorite={() => onToggleFavorite(artSlug)}
+          isFavorite={
+            artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+          }
+          slug={artSlug}
+        />
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
@@ -39,7 +46,7 @@ export default function ArtPieceDetails({ pieces }) {
           <List key={comment.id}>{comment.comment}</List>
         ))}
       </ul>
-      <Form onSubmit={handleForm}>
+      <Form onSubmit={onCommentForm}>
         <label htmlFor="comment"></label>
         <Textarea
           id="comment"
@@ -48,7 +55,7 @@ export default function ArtPieceDetails({ pieces }) {
           type="text"
           placeholder=" Add comment"
         ></Textarea>
-        <Button type="submit">Send</Button>
+        <SubmitButton type="submit">Send</SubmitButton>
       </Form>
     </>
   );
@@ -57,6 +64,10 @@ export default function ArtPieceDetails({ pieces }) {
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
+  &:hover {
+    text-decoration: underline;
+    color: lightsalmon;
+  }
 `;
 
 const List = styled.li`
@@ -82,7 +93,7 @@ const Textarea = styled.textarea`
   border-radius: 10px;
 `;
 
-const Button = styled.button`
+const SubmitButton = styled.button`
   width: 30%;
   height: 3vh;
   border-radius: 5px;
