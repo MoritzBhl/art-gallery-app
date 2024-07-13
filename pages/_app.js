@@ -7,6 +7,7 @@ import { uid } from "uid";
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  const [comments, setComments] = useState([]);
 
   function handleToggleFavorite(slug) {
     const artPiece = artPiecesInfo.find(
@@ -40,7 +41,7 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    setArtPiecesInfo([...artPiecesInfo, { ...data, id: uid() }]);
+    setComments([...comments, { ...data, id: uid() }]);
     event.target.reset();
     event.target.elements.comment.focus();
   }
@@ -52,6 +53,7 @@ export default function App({ Component, pageProps }) {
         <Component
           {...pageProps}
           pieces={pieces}
+          comments={comments}
           artPiecesInfo={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
           onCommentForm={handleCommentForm}

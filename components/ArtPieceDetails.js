@@ -2,20 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
+import { useRouter } from "next/router";
 
 export default function ArtPieceDetails({
   onToggleFavorite,
-  isFavorite,
-  image,
-  title,
-  artist,
-  genre,
-  artSlug,
-  year,
+  pieces,
   onCommentForm,
   artPiecesInfo,
+  comments,
 }) {
-  console.log(FavoriteButton);
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
+  const art = pieces[artIndex];
+
+  const {
+    artist,
+    genre,
+    imageSource: image,
+    name: title,
+    year,
+    slug: artSlug,
+  } = art;
   return (
     <>
       <div>
@@ -23,7 +32,9 @@ export default function ArtPieceDetails({
         <br></br>
         <FavoriteButton
           onToggleFavorite={() => onToggleFavorite(artSlug)}
-          isFavorite={isFavorite}
+          isFavorite={
+            artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+          }
           slug={artSlug}
         />
         <Image src={image} alt={title} width={300} height={300}></Image>
@@ -31,7 +42,7 @@ export default function ArtPieceDetails({
       </div>
       <ul>
         Comments:
-        {artPiecesInfo.map((comment) => (
+        {comments.map((comment) => (
           <List key={comment.id}>{comment.comment}</List>
         ))}
       </ul>
