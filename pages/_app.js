@@ -15,15 +15,18 @@ export default function App({ Component, pageProps }) {
     const artPiece = artPiecesInfo.find(
       (artPieceInfo) => artPieceInfo.slug === slug
     );
+    console.log(artPiece, artPiecesInfo, slug);
     if (artPiece) {
+      console.log("test");
       setArtPiecesInfo(
-        artPiecesInfo.map((piece) =>
+        [...artPiecesInfo].map((piece) =>
           piece.slug === slug
             ? { isFavorite: !piece.isFavorite, slug: piece.slug }
             : piece
         )
       );
     } else {
+      console.log("2");
       setArtPiecesInfo([...artPiecesInfo, { slug, isFavorite: true }]);
     }
   }
@@ -40,6 +43,7 @@ export default function App({ Component, pageProps }) {
   //DetailsPage Form
 
   function handleSubmitComment(event) {
+    console.log("caled!");
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);

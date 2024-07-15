@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { useRouter } from "next/router";
 import CommentForm from "./CommentForm";
+import { uid } from "uid";
+import { useId } from "react";
 
 export default function ArtPieceDetails({
   onToggleFavorite,
@@ -24,9 +26,9 @@ export default function ArtPieceDetails({
     name: title,
     year,
     slug: artSlug,
+    colors,
   } = art;
 
-  function handleSubmitComment() {}
   return (
     <>
       <div>
@@ -42,6 +44,15 @@ export default function ArtPieceDetails({
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
+      <ul>
+        This art consists of the following colors:
+        {colors.map((color) => (
+          <List key={uid()}>
+            {color}
+            <Square style={{ backgroundColor: color }}></Square>
+          </List>
+        ))}
+      </ul>
       <CommentForm
         onSubmitComment={onSubmitComment}
         artPiecesInfo={artPiecesInfo}
@@ -49,6 +60,17 @@ export default function ArtPieceDetails({
     </>
   );
 }
+
+const List = styled.li`
+  list-style: none;
+  margin: 1rem 0;
+`;
+
+const Square = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
