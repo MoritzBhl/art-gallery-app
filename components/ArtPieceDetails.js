@@ -29,21 +29,28 @@ export default function ArtPieceDetails({
     colors,
   } = art;
 
+  const handleSubmit = (newComment) => {
+    onSubmitComment(newComment);
+  };
+
+  const comments = artPiecesInfo.find((p) => p.slug === slug)?.comments;
   return (
     <>
-      <div>
-        <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
-        <br></br>
-        <FavoriteButton
-          onToggleFavorite={() => onToggleFavorite(artSlug)}
-          isFavorite={
-            artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
-          }
-          slug={artSlug}
-        />
-        <Image src={image} alt={title} width={300} height={300}></Image>
-        <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
-      </div>
+      <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
+      <DetailBody>
+        <DetailCard>
+          <br></br>
+          <FavoriteButton
+            onToggleFavorite={() => onToggleFavorite(artSlug)}
+            isFavorite={
+              artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+            }
+            slug={artSlug}
+          />
+          <Image src={image} alt={title} width={300} height={300}></Image>
+          <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
+        </DetailCard>
+      </DetailBody>
       <ul>
         This art consists of the following colors:
         {colors.map((color) => (
@@ -53,13 +60,28 @@ export default function ArtPieceDetails({
           </List>
         ))}
       </ul>
-      <CommentForm
-        onSubmitComment={onSubmitComment}
-        artPiecesInfo={artPiecesInfo}
-      />
+      <CommentForm onSubmitComment={handleSubmit} comments={comments} />
     </>
   );
 }
+
+const DetailBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const DetailCard = styled.div`
+  margin: 1rem 0;
+  padding: 1rem 0;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 3px 3px, -3px -3px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
 
 const List = styled.li`
   list-style: none;

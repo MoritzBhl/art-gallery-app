@@ -4,13 +4,18 @@ import Layout from "@/components/Layout";
 import { useState } from "react";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
-  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState([], {
-    defaultValue: [],
-  });
-
+  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState(
+    "art-pieces-info",
+    {
+      defaultValue: [],
+    }
+  );
+  const router = useRouter();
+  const { slug } = router.query;
   function handleToggleFavorite(slug) {
     const artPiece = artPiecesInfo.find(
       (artPieceInfo) => artPieceInfo.slug === slug
@@ -42,14 +47,30 @@ export default function App({ Component, pageProps }) {
 
   //DetailsPage Form
 
-  function handleSubmitComment(event) {
-    console.log("caled!");
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+  function handleSubmitComment(newComment) {
+    console.log(newComment, slug);
+    const currentArt = artPiecesInfo.find((p) => p.slug === slug);
+    if (currentArt) {
+      setArtPiecesInfo(
+        artPiecesInfo.map((p) => {
+          if (p.slug === slug) {
+            return p.comments
+              ? { ...p, comments: [...p.comments, newComment] }
+              : { ...p, comments: [newComment] };
+          } else {
+            return p;
+          }
+        })
+      );
+    } else {
+      setArtPiecesInfo([
+        ...artPiecesInfo,
+        { slug, isFavorite: false, comments: [newComment] },
+      ]);
+    }
+    /*
     setArtPiecesInfo([...artPiecesInfo, { ...data, id: uid() }]);
-    event.target.reset();
-    event.target.elements.comment.focus();
+    */
   }
 
   return (

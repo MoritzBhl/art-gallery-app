@@ -14,6 +14,8 @@ const StyledFavoriteButton = styled.button`
   background: none;
   cursor: pointer;
   position: absolute;
+  right: 10px;
+  top: 10px;
   width: 44px;
   padding: 0;
   height: 44px;
