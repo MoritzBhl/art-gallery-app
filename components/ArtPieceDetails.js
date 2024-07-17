@@ -16,6 +16,7 @@ export default function ArtPieceDetails({
 
   const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
   const art = pieces[artIndex];
+  const comments = artPiecesInfo.find((piece) => piece.slug === slug)?.comments;
 
   const {
     artist,
@@ -42,10 +43,7 @@ export default function ArtPieceDetails({
         <Image src={image} alt={title} width={300} height={300}></Image>
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
-      <CommentForm
-        onSubmitComment={onSubmitComment}
-        artPiecesInfo={artPiecesInfo}
-      />
+      <CommentForm onSubmitComment={onSubmitComment} comments={comments} />
     </>
   );
 }
