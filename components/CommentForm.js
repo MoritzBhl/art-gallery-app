@@ -2,17 +2,11 @@ import styled from "styled-components";
 import Comment from "./Comments";
 
 export default function CommentForm({ onSubmitComment, comments }) {
-  function handleSubmit(event) {
-    event.preventDefault();
-    const { comment } = event.target.elements;
-    onSubmitComment(comment.value);
-    event.target.reset();
-  }
-
   return (
     <>
       {comments && <Comment comments={comments} />}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={onSubmitComment}>
+
         <label htmlFor="comment"></label>
         <Textarea
           id="comment"

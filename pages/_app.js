@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
+
   const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState(
     "art-pieces-info",
     {
@@ -26,7 +27,7 @@ export default function App({ Component, pageProps }) {
       setArtPiecesInfo(
         [...artPiecesInfo].map((piece) =>
           piece.slug === slug
-            ? { isFavorite: !piece.isFavorite, slug: piece.slug }
+            ? { ...piece, isFavorite: !piece.isFavorite }
             : piece
         )
       );
@@ -47,30 +48,61 @@ export default function App({ Component, pageProps }) {
 
   //DetailsPage Form
 
-  function handleSubmitComment(newComment) {
-    console.log(newComment, slug);
-    const currentArt = artPiecesInfo.find((p) => p.slug === slug);
-    if (currentArt) {
+  function handleSubmitComment(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const commentData = Object.fromEntries(formData);
+
+    const activeArtPiece = artPiecesInfo.find((piece) => piece.slug === slug);
+
+    if (activeArtPiece) {
       setArtPiecesInfo(
-        artPiecesInfo.map((p) => {
-          if (p.slug === slug) {
-            return p.comments
-              ? { ...p, comments: [...p.comments, newComment] }
-              : { ...p, comments: [newComment] };
+        artPiecesInfo.map((piece) => {
+          if (piece.slug === activeArtPiece.slug) {
+            return piece.comments
+              ? {
+                  ...piece,
+                  comments: [
+                    ...piece.comments,
+                    {
+                      ...commentData,
+                      id: uid,
+                      date: new Date().toLocaleString(),
+                    },
+                  ],
+                }
+              : {
+                  ...piece,
+                  comments: [
+                    {
+                      ...commentData,
+                      id: uid,
+                      date: new Date().toLocaleString(),
+                    },
+                  ],
+                };
           } else {
-            return p;
+            return piece;
+
           }
         })
       );
     } else {
       setArtPiecesInfo([
         ...artPiecesInfo,
-        { slug, isFavorite: false, comments: [newComment] },
+        {
+          slug,
+          isFavorite: false,
+          comments: [
+            { ...commentData, id: uid(), date: new Date().toLocaleString() },
+          ],
+        },
       ]);
     }
-    /*
-    setArtPiecesInfo([...artPiecesInfo, { ...data, id: uid() }]);
-    */
+
+    event.target.reset();
+    event.target.elements.comment.focus();
+
   }
 
   return (

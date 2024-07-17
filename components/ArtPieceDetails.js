@@ -18,6 +18,7 @@ export default function ArtPieceDetails({
 
   const artIndex = pieces.findIndex(({ slug: artSlug }) => artSlug === slug);
   const art = pieces[artIndex];
+  const comments = artPiecesInfo.find((piece) => piece.slug === slug)?.comments;
 
   const {
     artist,
@@ -36,31 +37,21 @@ export default function ArtPieceDetails({
   const comments = artPiecesInfo.find((p) => p.slug === slug)?.comments;
   return (
     <>
-      <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
-      <DetailBody>
-        <DetailCard>
-          <br></br>
-          <FavoriteButton
-            onToggleFavorite={() => onToggleFavorite(artSlug)}
-            isFavorite={
-              artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
-            }
-            slug={artSlug}
-          />
-          <Image src={image} alt={title} width={300} height={300}></Image>
-          <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
-        </DetailCard>
-      </DetailBody>
-      <ul>
-        This art consists of the following colors:
-        {colors.map((color) => (
-          <List key={uid()}>
-            {color}
-            <Square style={{ backgroundColor: color }}></Square>
-          </List>
-        ))}
-      </ul>
-      <CommentForm onSubmitComment={handleSubmit} comments={comments} />
+      <div>
+        <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
+        <br></br>
+        <FavoriteButton
+          onToggleFavorite={() => onToggleFavorite(artSlug)}
+          isFavorite={
+            artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+          }
+          slug={artSlug}
+        />
+        <Image src={image} alt={title} width={300} height={300}></Image>
+        <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
+      </div>
+      <CommentForm onSubmitComment={onSubmitComment} comments={comments} />
+
     </>
   );
 }

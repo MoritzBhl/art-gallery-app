@@ -5,8 +5,9 @@ export default function Comment({ comments }) {
     <ul>
       Comments:
       {comments.map((comment) => (
-        <List key={comment.slug}>
-          {comment.comment} - {new Date().toLocaleString()}
+        <List key={comment.id}>
+          {comment.comment} - {comment.date}
+
         </List>
       ))}
     </ul>
