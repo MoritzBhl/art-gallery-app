@@ -8,26 +8,31 @@ import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
   //Toggle Button für ArtPieces Page
-  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState([], {
-    defaultValue: [],
-  });
 
+  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState(
+    "art-pieces-info",
+    {
+      defaultValue: [],
+    }
+  );
   const router = useRouter();
   const { slug } = router.query;
-
   function handleToggleFavorite(slug) {
     const artPiece = artPiecesInfo.find(
       (artPieceInfo) => artPieceInfo.slug === slug
     );
+    console.log(artPiece, artPiecesInfo, slug);
     if (artPiece) {
+      console.log("test");
       setArtPiecesInfo(
-        artPiecesInfo.map((piece) =>
+        [...artPiecesInfo].map((piece) =>
           piece.slug === slug
             ? { ...piece, isFavorite: !piece.isFavorite }
             : piece
         )
       );
     } else {
+      console.log("2");
       setArtPiecesInfo([...artPiecesInfo, { slug, isFavorite: true }]);
     }
   }
@@ -47,13 +52,7 @@ export default function App({ Component, pageProps }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const commentData = Object.fromEntries(formData);
-    /*
-   {
-isFavorite: false,
-slug: "",
-comments: [{comment: "dfdfb", id: 23}, {comment: "DFGDG", id: 34}]
-}
-*/
+
     const activeArtPiece = artPiecesInfo.find((piece) => piece.slug === slug);
 
     if (activeArtPiece) {
@@ -84,6 +83,7 @@ comments: [{comment: "dfdfb", id: 23}, {comment: "DFGDG", id: 34}]
                 };
           } else {
             return piece;
+
           }
         })
       );
@@ -102,6 +102,7 @@ comments: [{comment: "dfdfb", id: 23}, {comment: "DFGDG", id: 34}]
 
     event.target.reset();
     event.target.elements.comment.focus();
+
   }
 
   return (

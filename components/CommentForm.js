@@ -6,6 +6,7 @@ export default function CommentForm({ onSubmitComment, comments }) {
     <>
       {comments && <Comment comments={comments} />}
       <Form onSubmit={onSubmitComment}>
+
         <label htmlFor="comment"></label>
         <Textarea
           id="comment"

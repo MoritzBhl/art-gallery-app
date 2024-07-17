@@ -21,17 +21,23 @@ export default function Favorites({
               ? pieces.map((piece) =>
                   piece.slug === artPiece.slug ? (
                     <>
-                      <FavoriteButton
-                        onToggleFavorite={() => onToggleFavorite(piece.slug)}
-                        isFavorite={true}
-                      />
-                      <Image
-                        src={piece.imageSource}
-                        alt={piece.name}
-                        width={300}
-                        height={300}
-                      ></Image>
-                      <p>{`${piece.artist}: ${piece.name}`}</p>
+                      <FavoriteBodyCard>
+                        <FavoriteCard>
+                          <FavoriteButton
+                            onToggleFavorite={() =>
+                              onToggleFavorite(piece.slug)
+                            }
+                            isFavorite={true}
+                          />
+                          <Image
+                            src={piece.imageSource}
+                            alt={piece.name}
+                            width={300}
+                            height={300}
+                          ></Image>
+                          <p>{`${piece.artist}: ${piece.name}`}</p>
+                        </FavoriteCard>
+                      </FavoriteBodyCard>
                     </>
                   ) : null
                 )
@@ -42,6 +48,24 @@ export default function Favorites({
     </>
   );
 }
+
+const FavoriteBodyCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FavoriteCard = styled.div`
+  margin: 1rem 0;
+  padding: 1rem 0;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 3px 3px, -3px -3px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
 
 const List = styled.li`
   list-style: none;

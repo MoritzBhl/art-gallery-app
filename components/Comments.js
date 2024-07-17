@@ -7,6 +7,7 @@ export default function Comment({ comments }) {
       {comments.map((comment) => (
         <List key={comment.id}>
           {comment.comment} - {comment.date}
+
         </List>
       ))}
     </ul>

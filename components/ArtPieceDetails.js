@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { useRouter } from "next/router";
 import CommentForm from "./CommentForm";
+import { uid } from "uid";
+import { useId } from "react";
 
 export default function ArtPieceDetails({
   onToggleFavorite,
@@ -25,9 +27,14 @@ export default function ArtPieceDetails({
     name: title,
     year,
     slug: artSlug,
+    colors,
   } = art;
 
-  function handleSubmitComment() {}
+  const handleSubmit = (newComment) => {
+    onSubmitComment(newComment);
+  };
+
+  const comments = artPiecesInfo.find((p) => p.slug === slug)?.comments;
   return (
     <>
       <div>
@@ -44,9 +51,39 @@ export default function ArtPieceDetails({
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
       <CommentForm onSubmitComment={onSubmitComment} comments={comments} />
+
     </>
   );
 }
+
+const DetailBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const DetailCard = styled.div`
+  margin: 1rem 0;
+  padding: 1rem 0;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 3px 3px, -3px -3px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+const List = styled.li`
+  list-style: none;
+  margin: 1rem 0;
+`;
+
+const Square = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
