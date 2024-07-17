@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Comment from "./Comments";
 
-export default function CommentForm({ onSubmitComment, artPiecesInfo }) {
+export default function CommentForm({ onSubmitComment, comments }) {
   return (
     <>
-      <Comment artPiecesInfo={artPiecesInfo} />
+      {comments && <Comment comments={comments} />}
       <Form onSubmit={onSubmitComment}>
         <label htmlFor="comment"></label>
         <Textarea

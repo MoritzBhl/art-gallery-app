@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function Comment({ artPiecesInfo }) {
+export default function Comment({ comments }) {
   return (
     <ul>
       Comments:
-      {artPiecesInfo.map((comment) => (
+      {comments.map((comment) => (
         <List key={comment.id}>
-          {comment.comment} - {new Date().toLocaleString()}
+          {comment.comment} - {comment.date}
         </List>
       ))}
     </ul>
