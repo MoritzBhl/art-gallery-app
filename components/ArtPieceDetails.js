@@ -34,7 +34,6 @@ export default function ArtPieceDetails({
     onSubmitComment(newComment);
   };
 
-  const comments = artPiecesInfo.find((p) => p.slug === slug)?.comments;
   return (
     <>
       <div>
@@ -51,7 +50,6 @@ export default function ArtPieceDetails({
         <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
       </div>
       <CommentForm onSubmitComment={onSubmitComment} comments={comments} />
-
     </>
   );
 }

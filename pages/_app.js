@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
     );
     console.log(artPiece, artPiecesInfo, slug);
     if (artPiece) {
-      console.log("test");
+      console.log("IsFavorite", artPiece);
       setArtPiecesInfo(
         [...artPiecesInfo].map((piece) =>
           piece.slug === slug
@@ -83,7 +83,6 @@ export default function App({ Component, pageProps }) {
                 };
           } else {
             return piece;
-
           }
         })
       );
@@ -102,7 +101,6 @@ export default function App({ Component, pageProps }) {
 
     event.target.reset();
     event.target.elements.comment.focus();
-
   }
 
   return (

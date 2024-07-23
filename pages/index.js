@@ -14,8 +14,8 @@ export default function SpotlightPage({ pieces }) {
             <Image
               src={randomPicture.imageSource}
               alt={randomPicture.name}
-              width={300}
               height={300}
+              width={300}
             />
           </ul>
           <p>{`"${randomPicture.name}" by ${randomPicture.artist}`}</p>
