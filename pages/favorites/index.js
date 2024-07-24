@@ -2,12 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "@/components/FavoriteButton";
 
-export default function Favorites({
-  artPiecesInfo,
-  pieces,
-  onToggleFavorite,
-  isFavorite,
-}) {
+export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
   console.log("artPieceInfo: ", artPiecesInfo);
   console.log("pieces: ", pieces);
 
@@ -65,6 +60,7 @@ const FavoriteCard = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
 `;
 
 const List = styled.li`

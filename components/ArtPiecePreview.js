@@ -46,6 +46,7 @@ const ArtCard = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
 `;
 
 const StyledListItem = styled.li`
