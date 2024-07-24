@@ -37,8 +37,8 @@ const ArtBody = styled.div`
 `;
 
 const ArtCard = styled.div`
-  margin: 1rem 0;
-  padding: 1rem 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 50%;
   border-radius: 10px;
   box-shadow: 3px 3px, -3px -3px gray;

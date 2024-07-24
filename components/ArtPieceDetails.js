@@ -4,8 +4,7 @@ import styled from "styled-components";
 import FavoriteButton from "./FavoriteButton";
 import { useRouter } from "next/router";
 import CommentForm from "./CommentForm";
-import { uid } from "uid";
-import { useId } from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function ArtPieceDetails({
   onToggleFavorite,
@@ -36,19 +35,23 @@ export default function ArtPieceDetails({
 
   return (
     <>
-      <div>
-        <StyledLink href="/art-pieces">Back to Art Pieces</StyledLink>
-        <br></br>
-        <FavoriteButton
-          onToggleFavorite={() => onToggleFavorite(artSlug)}
-          isFavorite={
-            artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
-          }
-          slug={artSlug}
-        />
-        <Image src={image} alt={title} width={300} height={300}></Image>
-        <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
-      </div>
+      <DetailBody>
+        <StyledLink href="/art-pieces">
+          <FaArrowLeftLong />
+          Back to Art Pieces
+        </StyledLink>
+        <DetailCard>
+          <FavoriteButton
+            onToggleFavorite={() => onToggleFavorite(artSlug)}
+            isFavorite={
+              artPiecesInfo.find((piece) => piece.slug === artSlug)?.isFavorite
+            }
+            slug={artSlug}
+          />
+          <Image src={image} alt={title} width={300} height={300}></Image>
+          <p>{`${artist}: ${title}, ${genre}, ${year}`}</p>
+        </DetailCard>
+      </DetailBody>
       <CommentForm onSubmitComment={onSubmitComment} comments={comments} />
     </>
   );
@@ -58,11 +61,12 @@ const DetailBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3rem;
 `;
 
 const DetailCard = styled.div`
-  margin: 1rem 0;
-  padding: 1rem 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 50%;
   border-radius: 10px;
   box-shadow: 3px 3px, -3px -3px gray;
@@ -70,6 +74,7 @@ const DetailCard = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
 `;
 
 const List = styled.li`
@@ -90,4 +95,10 @@ const StyledLink = styled(Link)`
     text-decoration: underline;
     color: lightsalmon;
   }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
 `;

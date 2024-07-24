@@ -9,7 +9,7 @@ export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
 
   return (
     <>
-      <h2>Favorites</h2>
+      <Header>Favorites</Header>
       <ul>
         {artPiecesInfo.map((artPiece) => (
           <List key={artPiece.slug}>
@@ -45,6 +45,10 @@ export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
   );
 }
 
+const Header = styled.h2`
+  text-align: center;
+`;
+
 const FavoriteBodyCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,8 +56,8 @@ const FavoriteBodyCard = styled.div`
 `;
 
 const FavoriteCard = styled.div`
-  margin: 1rem 0;
-  padding: 1rem 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 50%;
   border-radius: 10px;
   box-shadow: 3px 3px, -3px -3px gray;
