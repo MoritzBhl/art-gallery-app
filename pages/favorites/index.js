@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "@/components/FavoriteButton";
+import { Fragment } from "react";
 
 export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
   console.log("artPieceInfo: ", artPiecesInfo);
@@ -15,7 +16,7 @@ export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
             {artPiece.isFavorite
               ? pieces.map((piece) =>
                   piece.slug === artPiece.slug ? (
-                    <>
+                    <Fragment key={piece.slug}>
                       <FavoriteBodyCard>
                         <FavoriteCard>
                           <FavoriteButton
@@ -33,7 +34,7 @@ export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
                           <p>{`${piece.artist}: ${piece.name}`}</p>
                         </FavoriteCard>
                       </FavoriteBodyCard>
-                    </>
+                    </Fragment>
                   ) : null
                 )
               : null}
