@@ -4,9 +4,6 @@ import FavoriteButton from "@/components/FavoriteButton";
 import { Fragment } from "react";
 
 export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
-  console.log("artPieceInfo: ", artPiecesInfo);
-  console.log("pieces: ", pieces);
-
   return (
     <>
       <Header>Favorites</Header>
