@@ -21,9 +21,7 @@ export default function App({ Component, pageProps }) {
     const artPiece = artPiecesInfo.find(
       (artPieceInfo) => artPieceInfo.slug === slug
     );
-    console.log(artPiece, artPiecesInfo, slug);
     if (artPiece) {
-      console.log("test");
       setArtPiecesInfo(
         [...artPiecesInfo].map((piece) =>
           piece.slug === slug
@@ -32,7 +30,6 @@ export default function App({ Component, pageProps }) {
         )
       );
     } else {
-      console.log("2");
       setArtPiecesInfo([...artPiecesInfo, { slug, isFavorite: true }]);
     }
   }
@@ -83,7 +80,6 @@ export default function App({ Component, pageProps }) {
                 };
           } else {
             return piece;
-
           }
         })
       );
@@ -102,7 +98,6 @@ export default function App({ Component, pageProps }) {
 
     event.target.reset();
     event.target.elements.comment.focus();
-
   }
 
   return (

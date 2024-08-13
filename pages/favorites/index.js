@@ -1,26 +1,19 @@
 import Image from "next/image";
 import styled from "styled-components";
 import FavoriteButton from "@/components/FavoriteButton";
+import { Fragment } from "react";
 
-export default function Favorites({
-  artPiecesInfo,
-  pieces,
-  onToggleFavorite,
-  isFavorite,
-}) {
-  console.log("artPieceInfo: ", artPiecesInfo);
-  console.log("pieces: ", pieces);
-
+export default function Favorites({ artPiecesInfo, pieces, onToggleFavorite }) {
   return (
     <>
-      <h2>Favorites</h2>
+      <Header>Favorites</Header>
       <ul>
         {artPiecesInfo.map((artPiece) => (
           <List key={artPiece.slug}>
             {artPiece.isFavorite
               ? pieces.map((piece) =>
                   piece.slug === artPiece.slug ? (
-                    <>
+                    <Fragment key={piece.slug}>
                       <FavoriteBodyCard>
                         <FavoriteCard>
                           <FavoriteButton
@@ -38,7 +31,7 @@ export default function Favorites({
                           <p>{`${piece.artist}: ${piece.name}`}</p>
                         </FavoriteCard>
                       </FavoriteBodyCard>
-                    </>
+                    </Fragment>
                   ) : null
                 )
               : null}
@@ -49,6 +42,10 @@ export default function Favorites({
   );
 }
 
+const Header = styled.h2`
+  text-align: center;
+`;
+
 const FavoriteBodyCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,8 +53,8 @@ const FavoriteBodyCard = styled.div`
 `;
 
 const FavoriteCard = styled.div`
-  margin: 1rem 0;
-  padding: 1rem 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 50%;
   border-radius: 10px;
   box-shadow: 3px 3px, -3px -3px gray;
@@ -65,6 +62,7 @@ const FavoriteCard = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
 `;
 
 const List = styled.li`

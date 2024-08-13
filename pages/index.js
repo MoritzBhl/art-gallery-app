@@ -7,23 +7,27 @@ export default function SpotlightPage({ pieces }) {
 
   return (
     <>
-      <h2>SPOTLIGHT</h2>
+      <Header>SPOTLIGHT</Header>
       <SpotlightBody>
         <SpotlightCard>
-          <ul>
+          <StyledUl>
             <Image
               src={randomPicture.imageSource}
               alt={randomPicture.name}
-              width={300}
               height={300}
+              width={300}
             />
-          </ul>
+          </StyledUl>
           <p>{`"${randomPicture.name}" by ${randomPicture.artist}`}</p>
         </SpotlightCard>
       </SpotlightBody>
     </>
   );
 }
+
+const Header = styled.h2`
+  text-align: center;
+`;
 
 const SpotlightBody = styled.div`
   display: flex;
@@ -32,8 +36,8 @@ const SpotlightBody = styled.div`
 `;
 
 const SpotlightCard = styled.div`
-  margin: 1rem 0;
-  padding: 1rem 0;
+  margin: 1rem;
+  padding: 1rem;
   width: 50%;
   border-radius: 10px;
   box-shadow: 3px 3px, -3px -3px gray;
@@ -41,4 +45,12 @@ const SpotlightCard = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-width: 300px;
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 `;

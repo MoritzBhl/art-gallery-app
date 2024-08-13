@@ -1,9 +1,10 @@
 import ArtPiecePreview from "@/components/ArtPiecePreview";
+import styled from "styled-components";
 
 export default function ArtPieces({ pieces, onToggleFavorite, artPiecesInfo }) {
   return (
     <>
-      <h2>ART GALLERY</h2>
+      <Header>ART GALLERY</Header>
       <ul>
         {pieces.map(({ imageSource: image, name: title, artist, slug }) => {
           return (
@@ -24,3 +25,7 @@ export default function ArtPieces({ pieces, onToggleFavorite, artPiecesInfo }) {
     </>
   );
 }
+
+const Header = styled.h2`
+  text-align: center;
+`;
